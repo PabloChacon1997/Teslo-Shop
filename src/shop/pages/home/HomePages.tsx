@@ -9,8 +9,8 @@ export const HomePages = () => {
   return (
     <>
       <CustomJumbotron title="Todos los productos"/>
-      <ProductsGrid products={data || []} />
-      <CustomPagination totalPages={7}/>
+      <ProductsGrid products={data?.products || []} />
+      <CustomPagination totalPages={data?.pages ?? 1}/>
     </>
   )
 }
