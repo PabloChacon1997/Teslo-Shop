@@ -6,11 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { CustomLogo } from "@/components/custom/CustomLogo";
+import { useAuthStore } from "@/auth/store/auth.store";
 
 
 export const CustomHeader = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { user, logout } = useAuthStore();
 
   const { gender } = useParams();
 
@@ -90,12 +93,22 @@ export const CustomHeader = () => {
             <Button variant="ghost" size="icon" className="md:hidden">
               <Search className="h-5 w-5" />
             </Button>
+
+            {
+              !user ? (
+                <Link to="/auth/login" >
+                  <Button variant='default' size='sm' className="ml-2">
+                    Login
+                  </Button>
+                </Link>
+              ): (
+                  <Button variant='outline' size='sm' className="ml-2" onClick={logout}>
+                    Cerrar sesion
+                  </Button>
+
+              )
+            }
             
-            <Link to="/auth/login" >
-              <Button variant='default' size='sm' className="ml-2">
-                Login
-              </Button>
-            </Link>
             <Link to="/admin" >
               <Button variant='destructive' size='sm' className="ml-2">
                 Admin
